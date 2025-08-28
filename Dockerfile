@@ -10,9 +10,7 @@ RUN apk add --no-cache dumb-init
 
 
 # ~~~~~~~~~~~~~~ STAGE 2: Dependencies ~~~~~~~~~~~~~~
-# This stage installs *only* production dependencies.
-# It leverages Docker's layer caching effectively. This layer only rebuilds
-# if package.json or package-lock.json changes.
+
 FROM base AS deps
 COPY package.json package-lock.json* ./
 RUN npm ci --omit=dev
@@ -41,7 +39,6 @@ FROM base AS runner
 # Set the environment to production
 ENV NODE_ENV=production
 # Set a default port, can be overridden at runtime.
-ENV PORT=3000
 
 # Create a non-root user and group for security.
 RUN addgroup --system --gid 1001 nodejs
