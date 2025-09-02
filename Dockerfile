@@ -5,10 +5,6 @@
 FROM node:20-alpine AS base
 WORKDIR /usr/src/app
 
-# Install `dumb-init` for proper signal handling and to prevent zombie processes.
-RUN apk add --no-cache dumb-init
-
-
 # ~~~~~~~~~~~~~~ STAGE 2: Dependencies ~~~~~~~~~~~~~~
 
 FROM base AS deps
